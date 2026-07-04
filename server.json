@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "name": "io.github.memebo-at/memeboat-mcp",
+  "description": "Search 25,000+ meme templates and create shareable memes on memebo.at. Free, anonymous, no API key.",
+  "repository": {
+    "url": "https://github.com/memebo-at/memeboat-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registry_type": "npm",
+      "identifier": "memeboat-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environment_variables": []
+    }
+  ]
+}
