@@ -1,6 +1,6 @@
 # Memeboat MCP
 
-[![smithery badge](https://smithery.ai/badge/memeboat/memeboat)](https://smithery.ai/servers/memeboat/memeboat)
+[![smithery badge](https://smithery.ai/badge/memeboat/memeboat)](https://smithery.ai/servers/memeboat/memeboat) [![memeboat-mcp MCP server](https://glama.ai/mcp/servers/memebo-at/memeboat-mcp/badges/score.svg)](https://glama.ai/mcp/servers/memebo-at/memeboat-mcp)
 
 MCP server for [Memeboat](https://memebo.at) — search **25,000+ meme templates** and create real, shareable memes straight from your AI assistant. Free, anonymous, no API key.
 
