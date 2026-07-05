@@ -1,6 +1,6 @@
 {
   "name": "memeboat-mcp",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "mcpName": "at.memebo/memeboat-mcp",
   "description": "MCP server for Memeboat (memebo.at) — search 25,000+ meme templates and create memes from any AI assistant. Free, anonymous, no API key.",
   "type": "module",

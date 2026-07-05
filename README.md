@@ -16,15 +16,27 @@ https://memebo.at/meme/x-x-everywhere-code-reviews-code-reviews-everywhere-ab12c
 
 ## Install
 
+### No install — connect by URL (recommended)
+
+Memeboat is also hosted as a remote MCP server at **`https://memebo.at/mcp`** (streamable HTTP, no auth):
+
+```bash
+claude mcp add --transport http memeboat https://memebo.at/mcp
+```
+
+In Claude (web/desktop): Settings → Connectors → Add custom connector → `https://memebo.at/mcp`.
+
+### npm package (stdio)
+
 Requires Node.js 18+.
 
-### Claude Code
+#### Claude Code
 
 ```bash
 claude mcp add memeboat -- npx -y memeboat-mcp
 ```
 
-### Claude Desktop
+#### Claude Desktop
 
 Add to `claude_desktop_config.json`:
 
@@ -39,7 +51,7 @@ Add to `claude_desktop_config.json`:
 }
 ```
 
-### Cursor / other MCP clients
+#### Cursor / other MCP clients
 
 Any client that speaks stdio MCP works the same way: run `npx -y memeboat-mcp`.
 
