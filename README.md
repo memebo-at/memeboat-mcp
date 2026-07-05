@@ -63,9 +63,13 @@ Any client that speaks stdio MCP works the same way: run `npx -y memeboat-mcp`.
 |---|---|
 | `search_meme_templates` | Search templates by name or topic (`query`, optional `limit`). Returns slugs, image URLs and a `suggestedCaptionCount` per template. |
 | `get_meme_template` | Details for one template by slug: dimensions, image URL, caption count. |
-| `create_meme` | Caption a template (`template` slug + `texts[]`, top-to-bottom) and get back the meme's page URL and direct image URL. |
+| `create_meme` | Caption a template (`template` slug + `texts[]`, top-to-bottom) and get back the meme's page URL and direct image URL. Supports per-caption styling and layout (see below). |
 
 Caption placement: 1 text = bottom caption, 2 texts = classic top/bottom, more texts fill the template's own caption boxes in order — matching `suggestedCaptionCount` gives the best results.
+
+**Styling (`create_meme`):** each entry in `texts[]` can be a plain string or an object `{ text, color?, outline?, font? }`. Colors are a hex value (`#f00`/`#ff0000`) or one of `white`, `black`, `red`, `yellow`, `blue`, `green`; leave `outline` off and a readable outline is picked for you. A top-level `font` sets the default for every caption, and `layout: "top"` puts the captions in a white bar above the image instead of overlaying them. Fonts: `impact`, `arial`, `helvetica`, `times`, `courier`, `titillium`, `thick`, `kalam`, `comic`, `notosans`, `notosanshebrew`.
+
+> "Make a drake meme, red top caption, in the *top* layout"
 
 ## How it works
 

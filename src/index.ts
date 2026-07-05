@@ -18,7 +18,31 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 
 const BASE_URL = (process.env.MEMEBOAT_API_URL || 'https://memebo.at').replace(/\/+$/, '');
-const USER_AGENT = 'memeboat-mcp/0.2.0 (+https://github.com/memebo-at/memeboat-mcp)';
+const USER_AGENT = 'memeboat-mcp/0.3.0 (+https://github.com/memebo-at/memeboat-mcp)';
+
+/**
+ * Fonts the server accepts for the `font` params (validated server-side; listed
+ * here only for the tool descriptions). Keep in sync with the API's FONT_IDS.
+ */
+const FONT_IDS = [
+  'impact', 'arial', 'helvetica', 'times', 'courier',
+  'titillium', 'thick', 'kalam', 'comic', 'notosans', 'notosanshebrew',
+];
+
+/**
+ * A create_meme caption: a plain string, or an object opting into per-caption
+ * styling. Colors are a hex value (#rgb/#rrggbb) or one of
+ * white/black/red/yellow/blue/green; the server validates and rejects others.
+ */
+const captionInput = z.union([
+  z.string().max(200),
+  z.object({
+    text: z.string().max(200),
+    color: z.string().optional().describe('Fill color: hex (#rgb/#rrggbb) or white/black/red/yellow/blue/green'),
+    outline: z.string().optional().describe('Outline color; omit for an auto-picked readable outline'),
+    font: z.string().optional().describe(`Font for this caption, one of: ${FONT_IDS.join(', ')}`),
+  }),
+]);
 
 interface RawTemplate {
   id: number;
@@ -32,10 +56,12 @@ interface RawTemplate {
   fileType?: string;
   popularity?: number;
   defaultItems?: unknown[];
+  styles?: Record<string, { img: string; width: number; height: number }> | null;
 }
 
 /** Trims an API template row down to what an assistant actually needs. */
 function toToolTemplate(t: RawTemplate) {
+  const styleNames = t.styles ? Object.keys(t.styles) : [];
   return {
     name: t.name,
     slug: t.urlName,
@@ -48,6 +74,8 @@ function toToolTemplate(t: RawTemplate) {
       : 2,
     pageUrl: `${BASE_URL}/templates/${t.urlName}`,
     tags: (t.tags || []).slice(0, 10),
+    // Alternate background styles (Epic 6.7): pass one as create_meme's `style`.
+    ...(styleNames.length ? { availableStyles: styleNames } : {}),
   };
 }
 
@@ -90,7 +118,7 @@ function errorResult(error: unknown) {
 
 const server = new McpServer({
   name: 'memeboat',
-  version: '0.2.0',
+  version: '0.3.0',
 });
 
 server.registerTool(
@@ -151,22 +179,37 @@ server.registerTool(
       'Create a real, shareable meme on memebo.at by captioning a template. ' +
       'texts are placed top-to-bottom: 1 caption = bottom text, 2 captions = ' +
       'classic top/bottom, N captions fill the template\'s boxes in order ' +
-      '(match suggestedCaptionCount when possible). Returns the meme page URL ' +
-      'and a direct image URL. Rate-limited per IP — space out repeated calls.',
+      '(match suggestedCaptionCount when possible). Captions can be plain ' +
+      'strings or objects with per-caption color/outline/font; optional global ' +
+      'font and layout ("top" = captions in a white bar above the image). ' +
+      'Returns the meme page URL and a direct image URL. Rate-limited per IP — ' +
+      'space out repeated calls.',
     inputSchema: {
       template: z.string().min(1).max(200).describe('Template slug, e.g. "x-x-everywhere"'),
       texts: z
-        .array(z.string().max(200))
+        .array(captionInput)
         .min(1)
         .max(10)
-        .describe('Caption strings, top-to-bottom. At least one must be non-empty.'),
+        .describe(
+          'Captions, top-to-bottom. Each is a string or { text, color?, outline?, font? }. ' +
+          'At least one must be non-empty.'
+        ),
+      font: z.string().optional().describe(`Default font for all captions, one of: ${FONT_IDS.join(', ')}`),
+      layout: z
+        .enum(['default', 'top'])
+        .optional()
+        .describe('layout:"top" puts captions in a white bar above the image; "default" overlays them on the image'),
+      style: z
+        .string()
+        .optional()
+        .describe('Alternate background style name from get_meme_template\'s availableStyles, e.g. "maga"'),
     },
   },
-  async ({ template, texts }) => {
+  async ({ template, texts, font, layout, style }) => {
     try {
       const data = await apiFetch('/api/memes/create', {
         method: 'POST',
-        body: JSON.stringify({ template, texts }),
+        body: JSON.stringify({ template, texts, font, layout, style }),
       });
       return jsonResult(data.data);
     } catch (error) {
