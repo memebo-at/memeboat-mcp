@@ -73,6 +73,14 @@ This package is a thin stdio client over Memeboat's public JSON API (`https://me
 
 Point the server at another instance with `MEMEBOAT_API_URL` (useful for development).
 
+## Where to find it
+
+- **Official MCP Registry:** `at.memebo/memeboat-mcp`
+- **npm:** [memeboat-mcp](https://www.npmjs.com/package/memeboat-mcp)
+- **Smithery:** [@memeboat/memeboat](https://smithery.ai/servers/memeboat/memeboat)
+- **Glama:** [server](https://glama.ai/mcp/servers/memebo-at/memeboat-mcp) · [connector](https://glama.ai/mcp/connectors/at.memebo/memeboat-mcp)
+- **mcp.so:** [memeboat](https://mcp.so/server/memeboat/memebo-at)
+
 ## About Memeboat
 
 [Memeboat](https://memebo.at) is a free, anonymous meme generator — no sign-up, no login walls. Browse the full catalog at [memebo.at/templates](https://memebo.at/templates).
