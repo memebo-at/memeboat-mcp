@@ -1,5 +1,7 @@
 # Memeboat MCP
 
+[![smithery badge](https://smithery.ai/badge/memeboat/memeboat)](https://smithery.ai/servers/memeboat/memeboat)
+
 MCP server for [Memeboat](https://memebo.at) — search **25,000+ meme templates** and create real, shareable memes straight from your AI assistant. Free, anonymous, no API key.
 
 ![Demo: Claude creates a meme via memeboat-mcp](./demo.gif)
