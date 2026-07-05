@@ -2,6 +2,8 @@
 
 MCP server for [Memeboat](https://memebo.at) — search **25,000+ meme templates** and create real, shareable memes straight from your AI assistant. Free, anonymous, no API key.
 
+![Demo: Claude creates a meme via memeboat-mcp](./demo.gif)
+
 Ask your assistant things like:
 
 > "Make a Buzz Lightyear *everywhere* meme about code reviews"
