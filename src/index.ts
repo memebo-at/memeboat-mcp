@@ -18,7 +18,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 
 const BASE_URL = (process.env.MEMEBOAT_API_URL || 'https://memebo.at').replace(/\/+$/, '');
-const USER_AGENT = 'memeboat-mcp/0.1.0 (+https://github.com/memebo-at/memeboat-mcp)';
+const USER_AGENT = 'memeboat-mcp/0.1.1 (+https://github.com/memebo-at/memeboat-mcp)';
 
 interface RawTemplate {
   id: number;
@@ -90,7 +90,7 @@ function errorResult(error: unknown) {
 
 const server = new McpServer({
   name: 'memeboat',
-  version: '0.1.0',
+  version: '0.1.1',
 });
 
 server.registerTool(
