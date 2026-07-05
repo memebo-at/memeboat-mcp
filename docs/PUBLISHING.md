@@ -15,15 +15,21 @@ the owner's accounts; everything else is scriptable.
 The official registry at `registry.modelcontextprotocol.io` — several
 directories crawl it automatically (Glama, PulseMCP, …).
 
+The `at.memebo/*` namespace is **domain-verified** (deliberately NOT the
+GitHub-org namespace — that would require a public org membership): a TXT
+record on memebo.at (`v=MCPv1; k=ed25519; p=<pubkey>`, set via Cloudflare)
+proves ownership, and the matching private key lives in the private deploy
+repo's `.env` as `MCP_REGISTRY_DNS_SEED`. Keep both in place.
+
 1. Install the publisher CLI: `brew install mcp-publisher` (or download from
    https://github.com/modelcontextprotocol/registry/releases).
-2. 👤 `mcp-publisher login github` — authenticates the `io.github.memebo-at/*`
-   namespace via the GitHub org.
+2. `mcp-publisher login dns --domain memebo.at --private-key $MCP_REGISTRY_DNS_SEED`
 3. `mcp-publisher publish` — validates and submits `server.json`.
 
-Note: the npm package must already be published (the registry verifies it),
-and `server.json`'s schema evolves — if publish fails validation, re-check
-against the current schema URL in the file.
+Notes: the npm package for the version in `server.json` must already be
+published, and its package.json `mcpName` must equal the server name
+(`at.memebo/memeboat-mcp`). The `server.json` schema evolves — if publish
+fails validation, re-check against the current schema URL in the file.
 
 ## Directories (one-time, ~1 hour total)
 
