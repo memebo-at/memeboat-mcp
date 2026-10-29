@@ -18,7 +18,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 
 const BASE_URL = (process.env.MEMEBOAT_API_URL || 'https://memebo.at').replace(/\/+$/, '');
-const USER_AGENT = 'memeboat-mcp/0.3.0 (+https://github.com/memebo-at/memeboat-mcp)';
+const USER_AGENT = 'memeboat-mcp/0.4.0 (+https://github.com/memebo-at/memeboat-mcp)';
 
 /**
  * Fonts the server accepts for the `font` params (validated server-side; listed
@@ -57,6 +57,8 @@ interface RawTemplate {
   popularity?: number;
   defaultItems?: unknown[];
   styles?: Record<string, { img: string; width: number; height: number }> | null;
+  /** The meaning section the API adds only when the template's family has a live one; passed on unchanged. */
+  origin?: unknown;
 }
 
 /** Trims an API template row down to what an assistant actually needs. */
@@ -76,6 +78,7 @@ function toToolTemplate(t: RawTemplate) {
     tags: (t.tags || []).slice(0, 10),
     // Alternate background styles (Epic 6.7): pass one as create_meme's `style`.
     ...(styleNames.length ? { availableStyles: styleNames } : {}),
+    ...(t.origin ? { origin: t.origin } : {}),
   };
 }
 
@@ -118,7 +121,7 @@ function errorResult(error: unknown) {
 
 const server = new McpServer({
   name: 'memeboat',
-  version: '0.3.0',
+  version: '0.4.0',
 });
 
 server.registerTool(
@@ -126,7 +129,7 @@ server.registerTool(
   {
     title: 'Search meme templates',
     description:
-      'Search memebo.at\'s catalog of 25,000+ meme templates by name or topic ' +
+      'Search memebo.at\'s catalog of 25,000+ meme templates by name, other names or topic ' +
       '(e.g. "drake", "distracted boyfriend", "cat"). Returns matching templates ' +
       'with their slug (use it with create_meme), image URL and a suggested caption count.',
     inputSchema: {
@@ -156,7 +159,7 @@ server.registerTool(
     title: 'Get meme template details',
     description:
       'Fetch one meme template by its slug (from search_meme_templates or a ' +
-      'memebo.at/templates/<slug> URL): dimensions, image URL and suggested caption count.',
+      'memebo.at/templates/<slug> URL): dimensions, image URL, suggested caption count and, when it has one, the meaning and origin of the meme with its sources.',
     inputSchema: {
       slug: z.string().min(1).max(200).describe('Template slug, e.g. "x-x-everywhere"'),
     },
@@ -211,6 +214,20 @@ server.registerTool(
         method: 'POST',
         body: JSON.stringify({ template, texts, font, layout, style }),
       });
+      // An adult-rated template is never published: the API answers with the image inline as a data: URI.
+      // Return it as the remote connector does: the note, then an MCP image content block.
+      if (typeof data?.data?.imageBase64 === 'string') {
+        return {
+          content: [
+            { type: 'text' as const, text: 'This template is adult-rated; returning the image inline (not published).' },
+            {
+              type: 'image' as const,
+              data: data.data.imageBase64.replace(/^data:image\/webp;base64,/, ''),
+              mimeType: 'image/webp',
+            },
+          ],
+        };
+      }
       return jsonResult(data.data);
     } catch (error) {
       return errorResult(error);
