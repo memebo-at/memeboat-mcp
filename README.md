@@ -61,9 +61,9 @@ Any client that speaks stdio MCP works the same way: run `npx -y memeboat-mcp`.
 
 | Tool | What it does |
 |---|---|
-| `search_meme_templates` | Search templates by name or topic (`query`, optional `limit`). Returns slugs, image URLs and a `suggestedCaptionCount` per template. |
-| `get_meme_template` | Details for one template by slug: dimensions, image URL, caption count. |
-| `create_meme` | Caption a template (`template` slug + `texts[]`, top-to-bottom) and get back the meme's page URL and direct image URL. Supports per-caption styling and layout (see below). |
+| `search_meme_templates` | Search templates by name, other names or topic (`query`, optional `limit`). Returns slugs, image URLs and a `suggestedCaptionCount` per template. |
+| `get_meme_template` | Details for one template by slug: dimensions, image URL, caption count and, when the template has a checked meaning section, an `origin` field: `main` (the page it belongs to), `sentences` (each with the numbers of its `sources`) and `sources` (`n`, `url`, `title`, `site`, `sourceDate`, `checkedAt`, `archiveUrl`, `archivedAt`, `dead`; link `archiveUrl` when `dead` is true). No `origin` key when there is none. |
+| `create_meme` | Caption a template (`template` slug + `texts[]`, top-to-bottom) and get back the meme's page URL and direct image URL. Supports per-caption styling and layout (see below). For an adult-rated template nothing is published: you get a text note and the image inline. |
 
 Caption placement: 1 text = bottom caption, 2 texts = classic top/bottom, more texts fill the template's own caption boxes in order — matching `suggestedCaptionCount` gives the best results.
 
