@@ -53,9 +53,23 @@ Add to `claude_desktop_config.json`:
 }
 ```
 
-#### Cursor / other MCP clients
+#### Cursor
 
-Any client that speaks stdio MCP works the same way: run `npx -y memeboat-mcp`.
+Install this repository as a Cursor plugin, or add the hosted server to `~/.cursor/mcp.json` (no key, no sign-in):
+
+```json
+{
+  "mcpServers": {
+    "memeboat": {
+      "url": "https://memebo.at/mcp"
+    }
+  }
+}
+```
+
+#### Other MCP clients
+
+Any client that speaks stdio MCP works the same way: run `npx -y memeboat-mcp`. Clients that take a remote URL can use `https://memebo.at/mcp` instead.
 
 ## Tools
 

@@ -1,0 +1,16 @@
+{
+  "name": "memeboat",
+  "displayName": "Memeboat",
+  "version": "0.3.0",
+  "description": "Search 25,000+ meme templates and create shareable memes on memebo.at from Cursor. Free, anonymous, no API key.",
+  "author": {
+    "name": "Memeboat",
+    "email": "mcp@memebo.at"
+  },
+  "homepage": "https://memebo.at",
+  "repository": "https://github.com/memebo-at/memeboat-mcp",
+  "license": "MIT",
+  "logo": "assets/logo.png",
+  "keywords": ["memes", "meme-generator", "images", "mcp"],
+  "category": "integrations"
+}
