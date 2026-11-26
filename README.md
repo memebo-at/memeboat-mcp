@@ -1,3 +1,5 @@
+<p align="center"><img src="https://raw.githubusercontent.com/memebo-at/memeboat-mcp/main/assets/logo.png" width="220" alt="Memeboat logo"></p>
+
 # Memeboat MCP
 
 [![memeboat-mcp MCP server](https://glama.ai/mcp/servers/memebo-at/memeboat-mcp/badges/score.svg)](https://glama.ai/mcp/servers/memebo-at/memeboat-mcp)
