@@ -1,8 +1,10 @@
 # Memeboat MCP
 
-[![smithery badge](https://smithery.ai/badge/memeboat/memeboat)](https://smithery.ai/servers/memeboat/memeboat) [![memeboat-mcp MCP server](https://glama.ai/mcp/servers/memebo-at/memeboat-mcp/badges/score.svg)](https://glama.ai/mcp/servers/memebo-at/memeboat-mcp)
+[![memeboat-mcp MCP server](https://glama.ai/mcp/servers/memebo-at/memeboat-mcp/badges/score.svg)](https://glama.ai/mcp/servers/memebo-at/memeboat-mcp)
 
-MCP server for [Memeboat](https://memebo.at) — search **25,000+ meme templates** and create real, shareable memes straight from your AI assistant. Free, anonymous, no API key.
+MCP server for [Memeboat](https://memebo.at) — search **30,000+ meme templates** and create real, shareable memes straight from your AI assistant. Free, anonymous, no API key.
+
+Setup steps for Claude, ChatGPT, Cursor, VS Code, n8n and 17 more apps: [memebo.at/ai](https://memebo.at/ai).
 
 ![Demo: Claude creates a meme via memeboat-mcp](./demo.gif)
 
@@ -95,7 +97,6 @@ Point the server at another instance with `MEMEBOAT_API_URL` (useful for develop
 
 - **Official MCP Registry:** `at.memebo/memeboat-mcp`
 - **npm:** [memeboat-mcp](https://www.npmjs.com/package/memeboat-mcp)
-- **Smithery:** [@memeboat/memeboat](https://smithery.ai/servers/memeboat/memeboat)
 - **Glama:** [server](https://glama.ai/mcp/servers/memebo-at/memeboat-mcp) · [connector](https://glama.ai/mcp/connectors/at.memebo/memeboat-mcp)
 - **mcp.so:** [memeboat](https://mcp.so/server/memeboat/memebo-at)
 

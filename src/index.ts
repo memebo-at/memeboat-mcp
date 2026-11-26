@@ -128,8 +128,9 @@ server.registerTool(
   'search_meme_templates',
   {
     title: 'Search meme templates',
+    annotations: { readOnlyHint: true, openWorldHint: false },
     description:
-      'Search memebo.at\'s catalog of 25,000+ meme templates by name, other names or topic ' +
+      'Search memebo.at\'s catalog of 30,000+ meme templates by name, other names or topic ' +
       '(e.g. "drake", "distracted boyfriend", "cat"). Returns matching templates ' +
       'with their slug (use it with create_meme), image URL and a suggested caption count.',
     inputSchema: {
@@ -157,6 +158,7 @@ server.registerTool(
   'get_meme_template',
   {
     title: 'Get meme template details',
+    annotations: { readOnlyHint: true, openWorldHint: false },
     description:
       'Fetch one meme template by its slug (from search_meme_templates or a ' +
       'memebo.at/templates/<slug> URL): dimensions, image URL, suggested caption count and, when it has one, the meaning and origin of the meme with its sources.',
@@ -178,6 +180,8 @@ server.registerTool(
   'create_meme',
   {
     title: 'Create a meme',
+    // Adds a public meme page; changes and deletes nothing.
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
     description:
       'Create a real, shareable meme on memebo.at by captioning a template. ' +
       'texts are placed top-to-bottom: 1 caption = bottom text, 2 captions = ' +

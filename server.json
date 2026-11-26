@@ -1,13 +1,30 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "at.memebo/memeboat-mcp",
-  "description": "Search 25,000+ meme templates and create shareable memes on memebo.at. Free, anonymous, no API key.",
+  "title": "Memeboat",
+  "description": "Search 30,000+ meme templates and make shareable memes on memebo.at. Free, no sign-in, no key.",
   "repository": {
     "url": "https://github.com/memebo-at/memeboat-mcp",
     "source": "github"
   },
   "version": "0.4.0",
-  "websiteUrl": "https://memebo.at",
+  "websiteUrl": "https://memebo.at/ai",
+  "icons": [
+    {
+      "src": "https://memebo.at/icon0.svg",
+      "mimeType": "image/svg+xml",
+      "sizes": [
+        "any"
+      ]
+    },
+    {
+      "src": "https://memebo.at/apple-icon.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "180x180"
+      ]
+    }
+  ],
   "packages": [
     {
       "registryType": "npm",

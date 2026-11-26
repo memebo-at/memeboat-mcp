@@ -2,7 +2,7 @@
   "name": "memeboat-mcp",
   "version": "0.4.0",
   "mcpName": "at.memebo/memeboat-mcp",
-  "description": "MCP server for Memeboat (memebo.at) — search 25,000+ meme templates and create memes from any AI assistant. Free, anonymous, no API key.",
+  "description": "MCP server for Memeboat (memebo.at) — search 30,000+ meme templates and create memes from any AI assistant. Free, anonymous, no API key.",
   "type": "module",
   "bin": {
     "memeboat-mcp": "dist/index.js"
@@ -33,7 +33,7 @@
   ],
   "author": "Memeboat Team (https://memebo.at)",
   "license": "MIT",
-  "homepage": "https://memebo.at",
+  "homepage": "https://memebo.at/ai",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/memebo-at/memeboat-mcp.git"
